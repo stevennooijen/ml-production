@@ -10,7 +10,10 @@ def test_convert_camel_case():
 
 
 def test_is_dog():
-    assert 1 == 0  # TODO: Replace this.
+    s = pd.Series(['Dog', 'Cat'])
+    result = data.check_is_dog(s)
+    expected = pd.Series([True, False])
+    assert_series_equal(result, expected)
 
 
 def test_get_sex():
