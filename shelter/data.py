@@ -66,7 +66,7 @@ def add_features(df):
     newdf['sex'] = get_sex(newdf['sex_upon_outcome'])
     newdf['neutered'] = get_neutered(newdf['sex_upon_outcome'])
     newdf['hair_type'] = get_hair_type(newdf['breed'])
-    newdf['days_upon_outcome'] = compute_days_upon_outcome(newdf['age_upon_outcome'])
+    newdf['days_upon_outcome'] = compute_days(newdf['age_upon_outcome'])
     return newdf
 
 
@@ -126,12 +126,12 @@ def get_sex(sex_upon_outcome):
     return sex
 
 
-def get_neutered(sex_upon_outcome):
+def get_neutered(sex):
     """Determine if an animal was intact or not.
 
     Parameters
     ----------
-    sex_upon_outcome : pandas.Series
+    sex : pandas.Series
         Sex and fixed state when coming in
 
     Returns
@@ -139,11 +139,11 @@ def get_neutered(sex_upon_outcome):
     sex : pandas.Series
         Intact, fixed or unknown
     """
-    sex_upon_outcome.loc[sex_upon_outcome.str.lower().str.contains('neutered')] = 'fixed'
-    sex_upon_outcome.loc[sex_upon_outcome.str.lower().str.contains('spayed')] = 'fixed'
-    sex_upon_outcome.loc[sex_upon_outcome.str.lower().str.contains('intact')] = 'intact'
-    sex_upon_outcome.loc[~sex_upon_outcome.isin(['fixed', 'intact'])] = 'unknown'
-    return sex_upon_outcome
+    sex.loc[sex.str.lower().str.contains('neutered')] = 'fixed'
+    sex.loc[sex.str.lower().str.contains('spayed')] = 'fixed'
+    sex.loc[sex.str.lower().str.contains('intact')] = 'intact'
+    sex.loc[~sex.isin(['fixed', 'intact'])] = 'unknown'
+    return sex
 
 
 def get_hair_type(breed):
@@ -168,7 +168,7 @@ def get_hair_type(breed):
     return hair_type
 
 
-def compute_days_upon_outcome(age_upon_outcome):
+def compute_days(age_upon_outcome):
     """Compute age in days upon outcome.
 
     Parameters

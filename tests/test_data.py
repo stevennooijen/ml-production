@@ -44,10 +44,10 @@ def test_get_hair_type():
     assert_series_equal(result, expected)
 
 
-def test_compute_days_upon_outcome():
+def test_compute_days():
     s = pd.Series(['1 year', '2 years', '1 month', '2 months',
                    '1 weeks', '2 week', '1 days', '2 day'])
-    result = data.compute_days_upon_outcome(s)
+    result = data.compute_days(s)
     expected = pd.Series([365.0, 2*365.0, 30.0, 2*30.0,
                           7.0, 14.0, 1.0, 2.0])
     assert_series_equal(result, expected)
